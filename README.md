@@ -8,9 +8,9 @@ Write readable `.kms` files with intuitive tags like `@section`, `@button`, or `
 ## 🗺️ Roadmap
 
 - [x] Project structure initialized
-- [ ] CLI interface and base commands created (`build`, `new`, `serve`)
-- [ ] Basic rendering logic implemented
-- [ ] Support for custom tags (e.g. `@button`, `@section`)
+- [x] CLI interface and base commands created (`build`, `new`, `serve`)
+- [x] Basic rendering logic implemented
+- [x] Support for custom tags (e.g. `@button`, `@section`)
 - [ ] Add support for nested blocks (`@for`, `@if`)
 - [ ] HTTP fetch integration (`@fetch`)
 - [ ] Markdown support inside sections
