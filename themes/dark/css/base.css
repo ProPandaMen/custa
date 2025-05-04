@@ -10,5 +10,17 @@
 
 html, body {
   margin: 0;
+  padding: 0;
+  background: var(--background);
+}
+
+.container {
+  position: relative;
+}
+
+.content {
+  padding-left: var(--navbar-width);
+  height: 100vh;
+  overflow-y: auto;
   background: var(--background);
 }
