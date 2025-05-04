@@ -1,4 +1,6 @@
-from custa.parser import Node
+from custa.renderer.base import ElementRenderer
 
-def render_text(node: Node) -> str:
-    return f"<p>{node.props['text']}</p>"
+class TextRenderer(ElementRenderer):
+    def render(self, node, render_children):
+        text = node.props.get("text", "").strip()
+        return f"<p>{text}</p>" if text else ""

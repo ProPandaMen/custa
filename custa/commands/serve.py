@@ -3,7 +3,6 @@ import socketserver
 import os
 import typer
 
-
 def serve(port: int = 8000):
     """Serve the output folder locally."""
     os.chdir("output")

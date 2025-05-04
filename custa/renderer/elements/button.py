@@ -1,6 +1,7 @@
-from custa.parser import Node
+from custa.renderer.base import ElementRenderer
 
-def render_button(node: Node) -> str:
-    text = node.props.get("text", "Button")
-    link = node.props.get("link", "#")
-    return f'<a href="{link}" class="btn">{text}</a>'
+class ButtonRenderer(ElementRenderer):
+    def render(self, node, render_children):
+        text = node.props.get("text", "Button")
+        link = node.props.get("link", "#")
+        return f'<a href="{link}" class="btn">{text}</a>'

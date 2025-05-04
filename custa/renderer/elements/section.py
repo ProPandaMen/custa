@@ -1,4 +1,6 @@
-from custa.parser import Node
+from custa.renderer.base import ElementRenderer
 
-def render_section(node: Node) -> str:
-    return "<section>"
+class SectionRenderer(ElementRenderer):
+    def render(self, node, render_children):
+        content = render_children(node.children)
+        return f"<section>{content}</section>"

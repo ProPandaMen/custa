@@ -1,5 +1,7 @@
-from custa.parser import Node
+from custa.renderer.base import ElementRenderer
 
-def render_heading(node: Node) -> str:
-    text = node.props.get("text", "")
-    return f"<{node.type}>{text}</{node.type}>"
+class HeadingRenderer(ElementRenderer):
+    def render(self, node, render_children):
+        text = node.props.get("text", "")
+        tag = node.type
+        return f"<{tag}>{text}</{tag}>"

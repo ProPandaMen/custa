@@ -1,0 +1,14 @@
+:root {
+  --background: #121217;
+  --navbar-width: 256px;
+  --navbar-width-min: 80px;
+  --navbar-dark-primary: #1e1e2a;
+  --navbar-dark-secondary: #2a2a3d;
+  --navbar-light-primary: #ffffff;
+  --navbar-light-secondary: #888fa6;
+}
+
+html, body {
+  margin: 0;
+  background: var(--background);
+}
