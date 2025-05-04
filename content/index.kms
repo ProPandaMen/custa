@@ -1,0 +1,6 @@
+#title: Мой сайт
+
+@section
+Привет, это мой первый сайт на Custa!
+
+@button(text="Узнать больше", link="/about")

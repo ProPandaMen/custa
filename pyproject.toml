@@ -1,0 +1,11 @@
+[project]
+name = "custa"
+version = "0.1.0"
+description = "Custom HTML generator from simple markup syntax"
+authors = [{ name = "Твоё имя", email = "you@example.com" }]
+dependencies = ["jinja2", "typer", "httpx"]
+requires-python = ">=3.8"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
