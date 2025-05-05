@@ -6,6 +6,10 @@
   --navbar-dark-secondary: #2a2a3d;
   --navbar-light-primary: #ffffff;
   --navbar-light-secondary: #888fa6;
+
+  --gap: 1vw;
+  --navbar-width: 256px;
+  --navbar-width-min: 80px;
 }
 
 html, body {
@@ -16,11 +20,18 @@ html, body {
 
 .container {
   position: relative;
+  height: 100vh;
 }
 
 .content {
-  padding-left: var(--navbar-width);
-  height: 100vh;
-  overflow-y: auto;
-  background: var(--background);
+  position: absolute;
+  top: var(--gap);
+  bottom: var(--gap);
+  left: calc(var(--gap) + var(--navbar-width) + var(--gap));
+  right: var(--gap);
+  transition: left 0.2s ease;
+}
+
+.container.collapsed .content {
+  left: calc(var(--gap) + var(--navbar-width-min) + var(--gap));
 }

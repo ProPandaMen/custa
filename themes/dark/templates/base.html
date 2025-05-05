@@ -10,9 +10,10 @@
 
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="layout">
     <div id="nav-bar">
       <input id="nav-toggle" type="checkbox" />
+
       {nav_bar}
     </div>
   
@@ -20,5 +21,14 @@
       {main}
     </div>
   </div>
+
+  <script>
+    const toggle = document.getElementById('nav-toggle');
+    const container = document.getElementById('layout');
+
+    toggle.addEventListener('change', () => {
+      container.classList.toggle('collapsed', toggle.checked);
+    });
+  </script>
 </body>
 </html>
