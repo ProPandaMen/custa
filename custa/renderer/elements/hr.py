@@ -1,4 +1,5 @@
-from custa.parser import Node
+from custa.renderer.base import ElementRenderer
 
-def render_hr(node: Node) -> str:
-    return "<hr />"
+class HrRenderer(ElementRenderer):
+    def render(self, node, render_children):
+        return "<hr />"

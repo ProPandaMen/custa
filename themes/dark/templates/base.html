@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>{title}</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  <link rel="stylesheet" href="static/base.css">
+  <link rel="stylesheet" href="static/components.css">
+  <link rel="stylesheet" href="static/navbar.css">
+
+</head>
+<body>
+  <div class="container" id="layout">
+    <div id="nav-bar">
+      <input id="nav-toggle" type="checkbox" />
+
+      {nav_bar}
+    </div>
+  
+    <div class="content">
+      {main}
+    </div>
+  </div>
+
+  <script>
+    const toggle = document.getElementById('nav-toggle');
+    const container = document.getElementById('layout');
+
+    toggle.addEventListener('change', () => {{
+      container.classList.toggle('collapsed', toggle.checked);
+    }});
+  </script>
+</body>
+</html>

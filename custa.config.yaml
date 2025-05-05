@@ -1,0 +1,8 @@
+site:
+  title: My Custa Site
+  theme: dark
+  language: ru
+
+layout:
+  template_dir: themes/{theme}/templates
+  stylesheet_dir: themes/{theme}/css
