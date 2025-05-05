@@ -4,4 +4,7 @@ class ButtonRenderer(ElementRenderer):
     def render(self, node, render_children):
         text = node.props.get("text", "Button")
         link = node.props.get("link", "#")
-        return f'<a href="{link}" class="btn">{text}</a>'
+
+        color = node.props.get("color", "primary")
+
+        return f'<a class="button {color}" href="{link}" class="btn">{text}</a>'

@@ -1,5 +1,5 @@
 from pathlib import Path
-
+from collections import defaultdict
 from custa.parser import parse_mks
 from custa.renderer import render
 
@@ -60,22 +60,20 @@ def render_page(kms_path: Path, template: str, style_tags: str) -> str:
     raw_content = kms_path.read_text(encoding="utf-8")
     nodes = parse_mks(raw_content)
 
-    blocks = {}
+    title = kms_path.stem
+    blocks = defaultdict(str)
+
     for node in nodes:
         if node.type == "meta" and node.props.get("key") == "title":
-            blocks["title"] = node.props["value"]
+            title = node.props["value"]
+        elif node.type == "nav_bar":
+            blocks["nav_bar"] += render([node])
         else:
-            html = render([node])
-            blocks.setdefault(node.type, "")
-            blocks[node.type] += html
+            blocks["main"] += render([node])
 
-    if "title" not in blocks:
-        blocks["title"] = kms_path.stem
-
-    blocks["style"] = style_tags
-
-    required_keys = {"title", "style", "main", "sidebar", "meta", "nav_bar", "footer"}
-    for key in required_keys:
-        blocks.setdefault(key, "")
-
-    return template.format(**blocks)
+    return template.format(
+        title=title,
+        style=style_tags,
+        nav_bar=blocks["nav_bar"],
+        main=blocks["main"],
+    )

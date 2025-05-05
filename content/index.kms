@@ -13,11 +13,15 @@
 
     @nav_footer(username="ProPandaMen", role="Admin")
 
-@main
-    @h1(text="Главный заголовок")
-    @h2(text="Подзаголовок")
-    @h3(text="Малый заголовок")
+@h1(text="Главный заголовок")
+@h2(text="Подзаголовок")
+@h3(text="Малый заголовок")
 
-    @hr
+@hr
 
-    @button(text="Перейти", link="/contact")
+@button(text="TEST")
+@button(text="success", color="success")
+@button(text="warning", color="warning")
+@button(text="dunger", color="dunger")
+
+@hr
