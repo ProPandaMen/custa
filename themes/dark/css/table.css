@@ -1,0 +1,84 @@
+:root {
+    --table-row-alt: #232332;
+    --table-row-hover: #1b1b27;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+
+.custa-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #2a2a3d;
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 0.95rem;
+    color: var(--text-base);
+    background-color: var(--navbar-dark-primary);
+}
+
+.custa-table thead {
+    background-color: var(--navbar-dark-secondary);
+}
+
+.custa-table th,
+.custa-table td {
+    padding: 0.75em 1em;
+    text-align: left;
+    border-bottom: 1px solid #2a2a3d;
+}
+
+.custa-table th {
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.custa-table tbody tr:hover {
+    background-color: #1b1b27;
+    transition: background-color 0.2s ease;
+}
+
+.pagination {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.page-btn {
+    background-color: var(--navbar-dark-secondary);
+    color: var(--text-base);
+    border: none;
+    padding: 0.4em 0.8em;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.page-btn:hover {
+    background-color: #1b1b27;
+}
+
+.page-btn.active {
+    background-color: var(--color-primary);
+    color: var(--button-text);
+}
+
+.dots {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 0 0.3em;
+}
+
+.custa-table tbody tr:nth-child(even) {
+    background-color: var(--table-row-alt);
+}
+
+.custa-table tbody tr:hover {
+    background-color: var(--table-row-hover);
+}

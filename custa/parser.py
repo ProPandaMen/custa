@@ -43,18 +43,30 @@ def parse_mks(content: str) -> List[Node]:
                 key, _, value = line[1:].partition(":")
                 nodes.append(Node("meta", {"key": key.strip(), "value": value.strip()}))
             elif line.startswith("@"):
-                match = re.match(r"@(\w+)(\((.*?)\))?", line)
+                match = re.match(r"@(\w+)(\((.*?)\))?(?:\s+(.*))?", line)
+
                 if match:
                     tag = match.group(1)
                     props = parse_props(match.group(3) or "")
+                    text_content = match.group(4)
+
+                    children = []
+                    if text_content:
+                        children = [Node("text", {"text": text_content})]
 
                     next_indent = get_indent(lines[i+1]) if i+1 < len(lines) else 0
                     if next_indent > indent:
-                        children, consumed = parse_block(i+1, next_indent)
-                        nodes.append(Node(tag, props, children))
+                        block_children, consumed = parse_block(i+1, next_indent)
+                        parent_node = Node(tag, props, block_children)
+                        for child in block_children:
+                            child.parent = parent_node
+                        nodes.append(parent_node)
                         i = consumed - 1
                     else:
-                        nodes.append(Node(tag, props))
+                        parent_node = Node(tag, props, children)
+                        for child in children:
+                            child.parent = parent_node
+                        nodes.append(parent_node)
                 else:
                     raise ValueError(f"Invalid tag syntax: {line}")
             else:

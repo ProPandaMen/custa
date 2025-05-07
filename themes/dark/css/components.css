@@ -47,3 +47,30 @@ a.button.warning {
 a.button.dunger {
     background-color: var(--color-danger);
 }
+
+/* list */
+.custa-list {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+    color: var(--text-base);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.custa-list li {
+    margin-bottom: 0.5rem;
+
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.custa-list li::marker {
+    color: var(--color-primary);
+}
+
+.custa-list input[type="checkbox"] {
+    margin: 0;
+    flex-shrink: 0;
+}
+  

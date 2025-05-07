@@ -41,7 +41,7 @@
 }
 
 #nav-bar {
-  position: absolute;
+  position: fixed;
   left: 1vw;
   top: 1vw;
   height: calc(100% - 2vw);
