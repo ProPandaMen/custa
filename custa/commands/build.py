@@ -17,14 +17,33 @@ def build():
     OUTPUT_DIR.mkdir(exist_ok=True)
     config = load_config()
     theme = config["site"].get("theme", "default")
-
     template = load_template(config, theme)
     style_tags = copy_styles(config, theme)
 
-    for kms_path in CONTENT_DIR.glob("*.kms"):
-        page_html = render_page(kms_path, template, style_tags)
-        output_file = OUTPUT_DIR / f"{kms_path.stem}.html"
-        output_file.write_text(page_html, encoding="utf-8")
+    pages = config.get("pages", {})
+    for url_path, page_data in pages.items():
+        if isinstance(page_data, str):
+            filename = page_data
+            page_title = Path(page_data).stem
+        else:
+            filename = page_data["file"]
+            page_title = page_data.get("title", Path(filename).stem)
+
+        kms_path = CONTENT_DIR / filename
+        if not kms_path.exists():
+            typer.secho(f"⚠ File not found: {filename}", fg=typer.colors.YELLOW)
+            continue
+
+        html = render_page(kms_path, template, style_tags, page_title)
+
+        if url_path == "/":
+            output_file = OUTPUT_DIR / "index.html"
+        else:
+            target = OUTPUT_DIR / url_path.lstrip("/")
+            target.parent.mkdir(parents=True, exist_ok=True)
+            output_file = target.with_suffix(".html")
+
+        output_file.write_text(html, encoding="utf-8")
         typer.echo(f"✔ Built: {output_file}")
 
 
@@ -56,7 +75,7 @@ def copy_styles(config: dict, theme: str) -> str:
     return style_tags
 
 
-def render_page(kms_path: Path, template: str, style_tags: str) -> str:
+def render_page(kms_path: Path, template: str, style_tags: str, title: str) -> str:
     raw_content = kms_path.read_text(encoding="utf-8")
     nodes = parse_mks(raw_content)
 

@@ -76,3 +76,8 @@ def parse_mks(content: str) -> List[Node]:
 
     root_nodes, _ = parse_block(0, 0)
     return root_nodes
+
+def parse_kms_file(path: str) -> List[Node]:
+    with open(path, "r", encoding="utf-8") as f:
+        content = f.read()
+    return parse_mks(content)

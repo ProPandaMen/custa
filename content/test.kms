@@ -1,26 +1,20 @@
 @nav_bar(title="Custa")
     @nav_button(text="Главная", icon="fas fa-palette", link="/")
-    @nav_button(text="Автор", icon="fas fa-palette", link="/author")
+    
+    @nav_button(text="О проекте", icon="fas fa-images", link="/about")
+    @nav_button(text="Главная", icon="fas fa-palette", link="/")
+
     @hr
-    @nav_button(text="Таблицы", icon="fas fa-images", link="/table")
-    @nav_button(text="Test", icon="fas fa-images", link="/test")
-    @nav_button(text="Адель пидор", icon="fas fa-images", link="/test")
+
+    @nav_button(text="Ксюша", icon="fas fa-fill", link="/")
+    @nav_button(text="Тест", icon="fas fa-pen", link="/")
+
+    @nav_footer(username="ProPandaMen", role="Admin")
 
 @h1(text="Главный заголовок")
 @h2(text="Подзаголовок")
 @h3(text="Малый заголовок")
 
-@h1(text="Адель пидор")
-@table
-    @thead
-        @tr
-            @th Понятие
-            @th Аргументы
-    @tbody
-        @tr
-            @td А кто он еще?
-            @td Пидор!
-                    
 @hr
 
 @button(text="TEST")
