@@ -28,3 +28,11 @@ output/
 content/
 themes/
 custa.config.yaml
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Other
+publish.md
