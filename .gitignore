@@ -12,9 +12,6 @@ venv/
 # VS Code config
 .vscode/
 
-# Output files
-output/
-
 # OS files
 .DS_Store
 Thumbs.db
@@ -23,3 +20,11 @@ Thumbs.db
 *.log
 *.tmp
 *.swp
+
+# Generated output
+output/
+
+# Project content (user-specific)
+content/
+themes/
+custa.config.yaml

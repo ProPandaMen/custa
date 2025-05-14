@@ -1,11 +1,11 @@
-from custa.commands import build, new, serve
+from custa.commands import init, build, serve
 
 import typer
 
 app = typer.Typer()
 
+app.command()(init.init)
 app.command()(build.build)
-app.command()(new.new)
 app.command()(serve.serve)
 
 if __name__ == "__main__":

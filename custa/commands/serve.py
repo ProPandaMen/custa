@@ -1,10 +1,13 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from pathlib import Path
 
 from custa.parser import parse_kms_file
 from custa.renderer import render
 
-import os
+import typer
 import yaml
+import os
+
 
 
 CONFIG_PATH = "custa.config.yaml"
@@ -12,10 +15,7 @@ CONTENT_DIR = "content"
 OUTPUT_DIR = "output"
 STATIC_PREFIX = "/static/"
 
-with open(CONFIG_PATH, "r", encoding="utf-8") as f:
-    config = yaml.safe_load(f)
-
-pages = config.get("pages", {})
+pages = {}
 
 
 class CustaHandler(BaseHTTPRequestHandler):
@@ -87,7 +87,22 @@ class CustaHandler(BaseHTTPRequestHandler):
         return "application/octet-stream"
 
 
+def load_config():
+    if not Path(CONFIG_PATH).exists():
+        typer.echo("❌ Config file 'custa.config.yaml' not found.")
+        raise typer.Exit(1)
+
+    with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+        config = yaml.safe_load(f)
+
+    return config, config.get("pages", {})
+
+
 def serve(port: int = 8000):
+    global pages
+    
+    config, pages = load_config()
+
     server_address = ("", port)
     httpd = HTTPServer(server_address, CustaHandler)
     print(f"🚀 Server running at http://localhost:{port}")

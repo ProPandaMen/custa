@@ -1,43 +1,44 @@
-# 🚀 Custa
+# 🚀 Custa custa let's go!
 
-**Custa** is a custom markup-based static site generator that lets you build clean, minimal HTML websites using your own syntax.
-Write readable `.kms` files with intuitive tags like `@section`, `@button`, or `@fetch` — and generate fully styled HTML pages.
+**Custa** — это генератор HTML-страниц с использованием собственного языка разметки **KMS**  
+📄 Создавай читаемые, модульные `.kms`-файлы и собирай из них HTML-сайты с поддержкой тем, навигации и встроенного сервера.
 
----
-
-## 🗺️ Roadmap
-
-- [x] Project structure initialized
-- [x] CLI interface and base commands created (`build`, `new`, `serve`)
-- [x] Basic rendering logic implemented
-- [x] Support for custom tags (e.g. `@button`, `@section`)
-- [ ] Add support for nested blocks (`@for`, `@if`)
-- [ ] HTTP fetch integration (`@fetch`)
-- [ ] Markdown support inside sections
-- [ ] Theming and template system
-- [ ] Plugin architecture
+> 🔧 Идеально для быстрых прототипов, лендингов, документации или персональных сайтов — без фреймворков и сложностей.
 
 ---
 
-## 💻 CLI Commands
+## 📦 Установка
 
-> All commands are executed using:
-> ```bash
-> python -m custa.cli [command]
-> ```
+Установи Custa через pip:
 
-### 🔨 `custa build`
-Builds all `.kms` files from the `content/` folder into `.html` files in the `output/` folder.
-
-### 📝 `custa new [filename]`
-Creates a new `.kms` file with starter content in the `content/` folder.
-
-### 🌐 `custa serve`
-Launches a local development server to preview the generated site from the `output/` folder.
+```bash
+pip install custa
+```
 
 ---
 
-## 🙋‍♂️ Author
+## 🚀 Быстрый старт
+
+Создай первую страницу и собери HTML:
+
+```bash
+custa new index.kms
+custa build
+custa serve
+```
+
+Структура проекта после инициализации:
+
+```
+project-root/
+├── content/           # Файлы .kms
+├── output/            # Сгенерированные HTML-страницы
+├── themes/            # Темы: layout + стили
+├── custa.config.yaml  # Конфигурация сайта
+```
+
+---
+
+## 🙋‍♂️ Автор
 
 Built with ❤️ by **ProPandaMen**
-
