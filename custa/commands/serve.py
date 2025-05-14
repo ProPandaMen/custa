@@ -1,9 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 
-from custa.parser import parse_kms_file
-from custa.renderer import render
-
 import typer
 import yaml
 import os
@@ -101,7 +98,7 @@ def load_config():
 def serve(port: int = 8000):
     global pages
     
-    config, pages = load_config()
+    _, pages = load_config()
 
     server_address = ("", port)
     httpd = HTTPServer(server_address, CustaHandler)

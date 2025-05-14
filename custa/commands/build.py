@@ -13,7 +13,7 @@ CONFIG_FILE = Path("custa.config.yaml")
 
 
 def build():
-    """Build .kms files into static HTML pages based on theme and layout configuration."""
+    """Build .cst files into static HTML pages based on theme and layout configuration."""
     OUTPUT_DIR.mkdir(exist_ok=True)
     config = load_config()
     theme = config["site"].get("theme", "default")
@@ -29,12 +29,12 @@ def build():
             filename = page_data["file"]
             page_title = page_data.get("title", Path(filename).stem)
 
-        kms_path = CONTENT_DIR / filename
-        if not kms_path.exists():
+        cst_path = CONTENT_DIR / filename
+        if not cst_path.exists():
             typer.secho(f"⚠ File not found: {filename}", fg=typer.colors.YELLOW)
             continue
 
-        html = render_page(kms_path, template, style_tags, page_title)
+        html = render_page(cst_path, template, style_tags, page_title)
 
         if url_path == "/":
             output_file = OUTPUT_DIR / "index.html"
@@ -75,11 +75,11 @@ def copy_styles(config: dict, theme: str) -> str:
     return style_tags
 
 
-def render_page(kms_path: Path, template: str, style_tags: str, title: str) -> str:
-    raw_content = kms_path.read_text(encoding="utf-8")
+def render_page(cst_path: Path, template: str, style_tags: str, title: str) -> str:
+    raw_content = cst_path.read_text(encoding="utf-8")
     nodes = parse_mks(raw_content)
 
-    title = kms_path.stem
+    title = cst_path.stem
     blocks = defaultdict(str)
 
     for node in nodes:
