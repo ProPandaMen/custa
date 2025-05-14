@@ -22,7 +22,7 @@ pip install custa
 Создай первую страницу и собери HTML:
 
 ```bash
-custa new index.kms
+custa init
 custa build
 custa serve
 ```
