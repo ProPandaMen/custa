@@ -11,15 +11,3 @@ pages:
   "/":
     file: index.kms
     title: Главная
-
-  "/table":
-    file: table.kms
-    title: Таблицы
-
-  "/author":
-    file: author.kms
-    title: Автор
-  
-  "/test":
-    file: test.kms
-    title: test

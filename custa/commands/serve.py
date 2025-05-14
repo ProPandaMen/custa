@@ -1,9 +1,10 @@
-import os
-import yaml
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 from custa.parser import parse_kms_file
 from custa.renderer import render
+
+import os
+import yaml
 
 
 CONFIG_PATH = "custa.config.yaml"

@@ -25,6 +25,7 @@ html, body {
   background: var(--background);
 
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--text-base);
 }
 
 .container {

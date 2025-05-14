@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <title>{title}</title>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
   <link rel="stylesheet" href="static/base.css">
   <link rel="stylesheet" href="static/components.css">
   <link rel="stylesheet" href="static/navbar.css">
@@ -32,6 +30,12 @@
     toggle.addEventListener('change', () => {{
       container.classList.toggle('collapsed', toggle.checked);
     }});
+  </script>
+
+  <!-- Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
   </script>
 </body>
 </html>

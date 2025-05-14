@@ -1,115 +1,16 @@
 @nav_bar(title="Custa")
-    @nav_button(text="Главная", icon="fas fa-palette", link="/")
-    @nav_button(text="Автор", icon="fas fa-palette", link="/author")
+    @nav_button(text="Главная", icon="house", link="/")
+    @nav_button(text="Документация", icon="book", link="/docs")
+    @nav_button(text="GitHub", icon="github", link="/docs")
     @hr
-    @nav_button(text="Таблицы", icon="fas fa-images", link="/table")
-    @nav_button(text="Test", icon="fas fa-images", link="/test")
-    @nav_button(text="Адель пидор", icon="fas fa-images", link="/test")
+    @nav_button(text="О проекте", icon="info", link="/about")
 
-@h1(text="Главный заголовок")
-@h2(text="Подзаголовок")
-@h3(text="Малый заголовок")
+@h1(text="🎉 It worked!")
 
-@h1(text="Адель пидор")
-@table
-    @thead
-        @tr
-            @th Понятие
-            @th Аргументы
-    @tbody
-        @tr
-            @td А кто он еще?
-            @td Пидор!
-                    
-@hr
+Добро пожаловать в <b>Custa</b> — генератор HTML-страниц из CMS-файлов.
 
-@button(text="TEST")
-@button(text="success", color="success")
-@button(text="warning", color="warning")
-@button(text="dunger", color="dunger")
+Вы видите эту страницу, потому что Custa успешно установлена и сгенерировала HTML-файл.
 
 @hr
 
-@h1(text="Таблицы")
-@table
-    test
-    @thead
-        @tr
-            @th Название
-            @th Категория
-            @th Цена
-
-    @tbody
-        @tr
-            @td Товар A
-            @td Электроника
-            @td 15 000 ₽
-        @tr
-            @td Товар B
-            @td Книги
-            @td 800 ₽
-@hr
-
-@list
-    @item Первый пункт
-    @item Второй пункт
-    @item Третий пункт
-
-@hr
-
-@list(ordered=true)
-    @item Первый шаг
-    @item Второй шаг
-    @item Третий шаг
-
-@hr
-
-@list
-    @item Главный пункт
-        @list(ordered=true)
-            @item Вложенный шаг 1
-            @item Вложенный шаг 2
-    @item Второй пункт
-
-@hr
-
-@list(type="check")
-    @item Подключить стили
-    @item(checked=true) Добавить таблицы
-    @item(checked=true) Настроить парсер
-
-@hr
-
-@list(type="check")
-    @item Подключить стили
-    @item(checked=true) Добавить таблицы
-    @item(checked=true) Настроить парсер
-
-@hr
-
-@list(type="definition")
-    @item
-        @term HTML
-        @desc Язык разметки гипертекста
-
-    @item
-        @term DSL
-        @desc Язык, ориентированный на предметную область
-
-    @item
-        @term Custa
-        @desc Твой кастомный генератор HTML по DSL
-
-@hr
-
-@list(ordered=true)
-    @item Установить зависимости
-    @item Настроить проект
-        @list
-            @item Создать структуру директорий
-            @item Добавить шаблоны
-                @list(type="check")
-                    @item(checked=true) Стили
-                    @item(checked=false) Скрипты
-
-@hr
+🔧 Отредактируйте файл <code>content/index.kms</code> для создания собственной стартовой страницы.

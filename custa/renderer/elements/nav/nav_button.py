@@ -7,7 +7,7 @@ class NavButtonRenderer(ElementRenderer):
 
         return f'''
             <div class="nav-button">
-                <i class="{icon}"></i>
+                <i data-lucide="{icon}"></i>
                 <span>{text}</span>
             </div>
         '''
