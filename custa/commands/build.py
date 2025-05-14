@@ -14,11 +14,11 @@ CONFIG_FILE = Path("custa.config.yaml")
 
 def build():
     """Build .cst files into static HTML pages based on theme and layout configuration."""
-    OUTPUT_DIR.mkdir(exist_ok=True)
+    OUTPUT_DIR.mkdir(exist_ok=True)    
     config = load_config()
     theme = config["site"].get("theme", "default")
     template = load_template(config, theme)
-    style_tags = copy_styles(config, theme)
+    style_tags = copy_files(config, theme)
 
     pages = config.get("pages", {})
     for url_path, page_data in pages.items():
@@ -59,13 +59,18 @@ def load_template(config: dict, theme: str) -> str:
     return template_file.read_text(encoding="utf-8")
 
 
-def copy_styles(config: dict, theme: str) -> str:
+def copy_files(config: dict, theme: str) -> str:
     src_dir = Path(config["layout"]["stylesheet_dir"].format(theme=theme))
+    img_dir = Path(config["layout"]["image_dir"].format(theme=theme))
     dst_dir = OUTPUT_DIR / "static"
 
     if dst_dir.exists():
         shutil.rmtree(dst_dir)
+
+    # Copy CSS files
     shutil.copytree(src_dir, dst_dir)
+    # Copy images
+    shutil.copytree(img_dir, dst_dir, dirs_exist_ok=True)
 
     style_tags = ""
     for css_file in dst_dir.glob("*.css"):

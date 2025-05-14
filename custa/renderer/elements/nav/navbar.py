@@ -12,6 +12,7 @@ class NavbarRenderer(ElementRenderer):
         
         return f'''
             <div id="nav-header">
+                <img src="static/logo.svg" alt="Logo"/>
                 <a id="nav-title" href="/" target="_blank">{title}</a>
                 <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
             </div>
