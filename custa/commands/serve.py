@@ -6,7 +6,6 @@ import yaml
 import os
 
 
-
 CONFIG_PATH = "custa.config.yaml"
 CONTENT_DIR = "content"
 OUTPUT_DIR = "output"
@@ -41,21 +40,20 @@ class CustaHandler(BaseHTTPRequestHandler):
         self.send_header("Content-type", content_type)
         self.send_header("Cache-Control", "no-store, must-revalidate")
         self.end_headers()
-        
+
         with open(file_path, "rb") as f:
             self.wfile.write(f.read())
 
     def _serve_page(self, route: str):
         if route.endswith("/"):
-            route = route[:-1] or "/"  # убираем лишний /
+            route = route[:-1] or "/"
         page = pages.get(route)
         if not page:
-            self.send_error(404, "Page not found")
-            return
+            return self._serve_404()
 
         output_path = os.path.join(OUTPUT_DIR, f"{os.path.splitext(page['file'])[0]}.html")
         if not os.path.exists(output_path):
-            self.send_error(404, f"Built page not found: {output_path}")
+            self._serve_404()
             return
 
         try:
@@ -71,6 +69,24 @@ class CustaHandler(BaseHTTPRequestHandler):
                 self.send_error(500, f"Failed to serve HTML: {e}")
             except BrokenPipeError:
                 print("⚠️ Broken pipe while sending static HTML page")
+
+    def _serve_404(self):
+        path_404 = os.path.join(OUTPUT_DIR, "404.html")
+
+        if os.path.exists(path_404):
+            with open(path_404, "rb") as f:
+                html_bytes = f.read()
+            self.send_response(404)
+            self.send_header("Content-type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(html_bytes)))
+            self.end_headers()
+            self.wfile.write(html_bytes)
+        else:
+            self.send_response(404)
+            self.send_header("Content-type", "text/plain; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(b"404 Not Found")
+
 
     def _get_content_type(self, path: str) -> str:
         if path.endswith(".css"):
@@ -99,7 +115,7 @@ def load_config():
 
 def serve(port: int = 8000):
     global pages
-    
+
     _, pages = load_config()
 
     server_address = ("", port)
