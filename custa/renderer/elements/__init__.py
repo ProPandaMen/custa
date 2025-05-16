@@ -22,7 +22,7 @@ from custa.renderer.elements.lists.desc import DescRenderer
 
 renderers = {
     # Navbar
-    "nav_bar": NavbarRenderer(),
+    "navbar": NavbarRenderer(),
     "nav_button": NavButtonRenderer(),
     "nav_footer": NavFooterRenderer(),
 

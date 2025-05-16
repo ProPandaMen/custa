@@ -12,72 +12,79 @@ class Node:
     def __repr__(self):
         return f"Node(type={self.type}, props={self.props}, children={self.children})"
 
+
+def get_indent(line: str) -> int:
+    return len(line) - len(line.lstrip(" "))
+
+
 def parse_props(text: str) -> Dict[str, str]:
+    return dict(re.findall(r'(\\w+)\\s*=\\s*"([^"]+)"', text))
+
+
+def parse_tag_line(line: str) -> Tuple[str, Dict[str, str]]:
+    match = re.match(r":(\w+)(\((.*?)\))?(?:\s+(.*))?", line)
+    if not match:
+        raise ValueError(f"Invalid tag syntax: {line}")
+    
+    tag = match.group(1)
+    props_text = match.group(3)
+    inline_text = match.group(4)
+
+    props = parse_props(props_text or "")
+    if props_text is None and inline_text:
+        props["text"] = inline_text
+
+    return tag, props
+
+
+def extract_inline_props_from_children(children: List[Node]) -> Tuple[Dict[str, str], List[Node]]:
     props = {}
-    matches = re.findall(r'(\w+)\s*=\s*"([^"]+)"', text)
-    for key, value in matches:
-        props[key] = value
-    return props
+    remaining_children = []
+    for child in children:
+        if isinstance(child, Node) and len(child.children) == 1 and child.children[0].type == "text":
+            props[child.type] = child.children[0].props["text"]
+        else:
+            remaining_children.append(child)
+    return props, remaining_children
+
+
+def parse_block(lines: List[str], start: int, base_indent: int) -> Tuple[List[Node], int]:
+    nodes: List[Node] = []
+    i = start
+
+    while i < len(lines):
+        raw_line = lines[i]
+        if not raw_line.strip():
+            i += 1
+            continue
+
+        indent = get_indent(raw_line)
+        if indent < base_indent:
+            break
+        line = raw_line.strip()
+
+        if line.startswith(":"):
+            tag, props = parse_tag_line(line)
+
+            next_indent = get_indent(lines[i+1]) if i+1 < len(lines) else 0
+            if next_indent > indent:
+                children, consumed = parse_block(lines, i+1, next_indent)
+                if not props:
+                    extracted, children = extract_inline_props_from_children(children)
+                    props.update(extracted)
+                nodes.append(Node(tag, props, children))
+                i = consumed - 1
+            else:
+                nodes.append(Node(tag, props))
+        else:
+            nodes.append(Node("text", {"text": line}))
+        i += 1
+
+    return nodes, i
+
 
 def parse_mks(content: str) -> List[Node]:
     lines = content.splitlines()
-
-    def get_indent(line: str) -> int:
-        return len(line) - len(line.lstrip(" "))
-
-    def parse_block(start: int, base_indent: int) -> Tuple[List[Node], int]:
-        nodes: List[Node] = []
-        i = start
-        while i < len(lines):
-            raw_line = lines[i]
-            if not raw_line.strip():
-                i += 1
-                continue
-
-            indent = get_indent(raw_line)
-            if indent < base_indent:
-                break
-            line = raw_line.strip()
-
-            if line.startswith("#"):
-                key, _, value = line[1:].partition(":")
-                nodes.append(Node("meta", {"key": key.strip(), "value": value.strip()}))
-            elif line.startswith("@"):
-                match = re.match(r"@(\w+)(\((.*?)\))?(?:\s+(.*))?", line)
-
-                if match:
-                    tag = match.group(1)
-                    props = parse_props(match.group(3) or "")
-                    text_content = match.group(4)
-
-                    children = []
-                    if text_content:
-                        children = [Node("text", {"text": text_content})]
-
-                    next_indent = get_indent(lines[i+1]) if i+1 < len(lines) else 0
-                    if next_indent > indent:
-                        block_children, consumed = parse_block(i+1, next_indent)
-                        parent_node = Node(tag, props, block_children)
-                        for child in block_children:
-                            child.parent = parent_node
-                        nodes.append(parent_node)
-                        i = consumed - 1
-                    else:
-                        parent_node = Node(tag, props, children)
-                        for child in children:
-                            child.parent = parent_node
-                        nodes.append(parent_node)
-                else:
-                    raise ValueError(f"Invalid tag syntax: {line}")
-            else:
-                nodes.append(Node("text", {"text": line}))
-            i += 1
-        return nodes, i
-
-    root_nodes, _ = parse_block(0, 0)
+    root_nodes, _ = parse_block(lines, 0, 0)
+    
     return root_nodes
-
-def parse_kms_file(path: str) -> List[Node]:
-    with open(path, "r", encoding="utf-8") as f:
-        content = f.read()
-    return parse_mks(content)

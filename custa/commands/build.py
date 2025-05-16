@@ -12,9 +12,9 @@ OUTPUT_DIR = Path("output")
 CONFIG_FILE = Path("custa.config.yaml")
 
 
-def build():
+def build(debug: bool = False):
     """Build .cst files into static HTML pages based on theme and layout configuration."""
-    OUTPUT_DIR.mkdir(exist_ok=True)    
+    OUTPUT_DIR.mkdir(exist_ok=True)
     config = load_config()
     theme = config["site"].get("theme", "default")
     template = load_template(config, theme)
@@ -34,7 +34,16 @@ def build():
             typer.secho(f"⚠ File not found: {filename}", fg=typer.colors.YELLOW)
             continue
 
-        html = render_page(cst_path, template, style_tags, page_title)
+        raw_content = cst_path.read_text(encoding="utf-8")
+        nodes = parse_mks(raw_content)
+
+        if debug:
+            typer.echo(f"📄 Debug structure for {filename}:")
+            for node in nodes:
+                print_tree(node)
+            print("=" * 40)
+
+        html = render_page(nodes, template, style_tags, page_title)
 
         if url_path == "/":
             output_file = OUTPUT_DIR / "index.html"
@@ -80,24 +89,27 @@ def copy_files(config: dict, theme: str) -> str:
     return style_tags
 
 
-def render_page(cst_path: Path, template: str, style_tags: str, title: str) -> str:
-    raw_content = cst_path.read_text(encoding="utf-8")
-    nodes = parse_mks(raw_content)
-
-    title = cst_path.stem
+def render_page(nodes, template: str, style_tags: str, title: str) -> str:
+    title = title
     blocks = defaultdict(str)
 
     for node in nodes:
         if node.type == "meta" and node.props.get("key") == "title":
             title = node.props["value"]
-        elif node.type == "nav_bar":
-            blocks["nav_bar"] += render([node])
+        elif node.type == "navbar":
+            blocks["navbar"] += render([node])
         else:
             blocks["main"] += render([node])
 
     return template.format(
         title=title,
         style=style_tags,
-        nav_bar=blocks["nav_bar"],
+        navbar=blocks["navbar"],
         main=blocks["main"],
     )
+
+
+def print_tree(node, indent=0):
+    typer.echo("  " * indent + node.type)
+    for child in node.children:
+        print_tree(child, indent + 1)
