@@ -1,0 +1,47 @@
+:root {  
+  --background: #121217;
+  --navbar-dark-primary: #1e1e2a;
+  --navbar-dark-secondary: #2a2a3d;
+  --navbar-light-primary: #ffffff;
+  --navbar-light-secondary: #888fa6;
+
+  --text-light: #dcdce6;
+  --text-base: #c0c0d0;
+  --text-muted: #999aaa;
+
+  --text-dark-strong:	#1a1a1f;
+  --text-dark-base:	#2f2f36;
+  --text-dark-muted:	#6a6a7a;
+
+  --gap: 1vw;
+  --navbar-width: 256px;
+  --navbar-width-min: 80px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+
+  background: var(--background);
+
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--text-base);
+}
+
+.container {
+  position: relative;
+  height: 100vh;
+}
+
+.content {
+  position: absolute;
+  top: var(--gap);
+  bottom: var(--gap);
+  left: calc(var(--gap) + var(--navbar-width) + var(--gap));
+  right: var(--gap);
+  transition: left 0.2s ease;
+}
+
+.container.collapsed .content {
+  left: calc(var(--gap) + var(--navbar-width-min) + var(--gap));
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>{title}</title>
+
+  <link rel="stylesheet" href="static/base.css">
+  <link rel="stylesheet" href="static/components.css">
+  <link rel="stylesheet" href="static/navbar.css">
+  <link rel="stylesheet" href="static/table.css">
+
+</head>
+<body>
+  <div class="container" id="layout">
+    <div id="nav-bar">
+      <input id="nav-toggle" type="checkbox" />
+
+      {navbar}
+    </div>
+  
+    <div class="content">
+      {main}
+    </div>
+  </div>
+
+  <script>
+    const toggle = document.getElementById('nav-toggle');
+    const container = document.getElementById('layout');
+
+    toggle.addEventListener('change', () => {{
+      container.classList.toggle('collapsed', toggle.checked);
+    }});
+  </script>
+
+  <!-- Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+
+  <!-- Manually handles nav-button clicks to trigger navigation without delay -->
+  <script>
+    document.querySelectorAll('.nav-button').forEach(btn => {{
+      btn.addEventListener('click', e => {{
+        e.preventDefault();
+        window.location.href = btn.getAttribute('href');
+      }});
+    }});
+  </script>
+</body>
+</html>

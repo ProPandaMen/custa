@@ -21,13 +21,17 @@ Thumbs.db
 *.tmp
 *.swp
 
-# Generated output
-output/
+# Ignore only in root
+/output/
+/content/
+/themes/
+/custa.config.yaml
 
-# Project content (user-specific)
-content/
-themes/
-custa.config.yaml
+# Allow inside project_template
+!project_template/output/
+!project_template/content/
+!project_template/themes/
+!project_template/custa.config.yaml
 
 # Build artifacts
 dist/

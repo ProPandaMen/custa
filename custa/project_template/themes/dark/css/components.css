@@ -1,0 +1,76 @@
+:root {
+    --color-primary: #9399df;
+    --color-success: #3cb179;
+    --color-danger: #e04f5f;
+    --color-warning: #e5b567;    
+}
+
+h1, h2, h3 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: var(--text-base);
+}
+
+/* Button */
+
+a.button {
+    display: inline-block;
+    padding: 0.6em 1.2em;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+
+    background-color: var(--color-primary);
+    color: var(--text-dark-base);
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+a.button:hover {
+    filter: brightness(1.15);
+    transform: scale(1.02);
+}
+
+a.button:active {
+    transform: scale(0.98);
+}
+
+a.button.success {
+    background-color: var(--color-success);
+}
+
+a.button.warning {
+    background-color: var(--color-warning);
+}
+
+a.button.dunger {
+    background-color: var(--color-danger);
+}
+
+/* list */
+.custa-list {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+    color: var(--text-base);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.custa-list li {
+    margin-bottom: 0.5rem;
+
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.custa-list li::marker {
+    color: var(--color-primary);
+}
+
+.custa-list input[type="checkbox"] {
+    margin: 0;
+    flex-shrink: 0;
+}
+  
