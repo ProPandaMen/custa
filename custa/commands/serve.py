@@ -39,7 +39,9 @@ class CustaHandler(BaseHTTPRequestHandler):
         content_type = self._get_content_type(file_path)
         self.send_response(200)
         self.send_header("Content-type", content_type)
+        self.send_header("Cache-Control", "no-store, must-revalidate")
         self.end_headers()
+        
         with open(file_path, "rb") as f:
             self.wfile.write(f.read())
 

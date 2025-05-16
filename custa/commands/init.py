@@ -2,12 +2,12 @@ from pathlib import Path
 import shutil
 import typer
 
-def init():
+def init(force: bool = False):
     """Initializes the Custa project structure."""
     src = Path(__file__).parent.parent / "project_template"
     dst = Path.cwd()
     
-    if any((dst / f).exists() for f in ["content", "themes", "custa.config.yaml"]):
+    if not force and any((dst / f).exists() for f in ["content", "themes", "custa.config.yaml"]):
         typer.echo("⚠️ Project is already initialized or some folders already exist.")
         raise typer.Exit(1)
     
